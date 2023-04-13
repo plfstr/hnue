@@ -14,5 +14,23 @@
   "start_url": "/hnue/",
   "display": "standalone",
   "theme_color": "#f6f6ef",
-  "background_color": "#f6f6ef"
+  "background_color": "#f6f6ef",
+  "shortcuts" : [
+    {
+      "name": "New",
+      "url": "/new"
+    },
+    {
+      "name": "Best",
+      "url": "/best"
+    },
+    {
+      "name": "Ask",
+      "url": "/ask"
+    },
+    {
+      "name": "Show",
+      "url": "/show"
+    }
+  ]
 }
