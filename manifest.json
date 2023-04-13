@@ -1,0 +1,18 @@
+{
+  "name": "HNue",
+  "short_name" : "HNue",
+  "description" : "Its Hacker News but better, in Vue",
+  "scope": "/hnue/",
+  "icons": [
+    {
+      "src": "webclip-512x512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "start_url": "/hnue/",
+  "display": "standalone",
+  "theme_color": "#f6f6ef",
+  "background_color": "#f6f6ef"
+}

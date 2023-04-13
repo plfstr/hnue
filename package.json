@@ -1,0 +1,10 @@
+{
+    "name": "HNue",
+    "description": "Its Hacker News but better, in Vue",
+    "version": "1.0.0",
+    "private": true,
+    "dependencies": {
+        "vue": "3.x",
+        "vue-router": "4.x"
+    }
+}

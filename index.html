@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; connect-src https://hacker-news.firebaseio.com; script-src 'unsafe-eval' 'self';">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HNue News</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="https://hacker-news.firebaseio.com/v0/topstories.json" as="fetch">
+    <script src="vue.global.js" defer></script>
+    <script src="vue-router.global.js" defer></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <h1><router-link to="/"><span translate="no">HNue</span></router-link></h1>
+            <p><a href="http://news.ycombinator.com">Hacker News</a> but nicer.</p>
+        </header>
+        <div id="app" class="container">
+
+            <noscript>
+                <p><b>Sorry, HNue requires JavaScript to function.</b></p>
+                <p>Alternatively, <a href="https://news.ycombinator.com">Hacker News</a> does not.</p>
+            </noscript>
+
+            <nav class="nav--main">
+                <ul>
+                    <li v-for="(value, key) in tabs">
+                        <router-link :aria-current="tabCurrent(key)" :to="tabRoute(key)">{{ key }}</router-link>
+                    </li>
+                </ul>
+            </nav>
+
+            <main>
+                <router-view></router-view>
+            </main>
+
+        </div>
+        <footer>
+            <p><span translate="no">HNue</span> is not affiliated with Hacker News/YCombinator. Built with the HN API
+                and Vue framework by <a href="https://www.paulfosterdesign.co.uk">Paul Foster</a></p>
+        </footer>
+    </div>
+</body>
+</html>
