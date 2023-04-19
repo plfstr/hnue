@@ -116,7 +116,9 @@ article {
 
 .story {
     contain: content;
-    /* min-height: 3rem; */
+    min-height: 3rem;
+    content-visibility: auto;
+    contain-intrinsic-size: 3rem;
 }
 
 /* .post ul {
