@@ -328,17 +328,13 @@ hnue.component('hn-story', {
             if (this.story.parent) { return '/#' + encodeURI(this.story.parent) };
         },
         domain() {
-            // return this.story.url;
-            // if (new URL(this.story.url)) {
-            //     return new URL(this.story.url).host;
-            // } else {
-            //     return this.story.url;
-            // }
-            try {
-                return new URL(this.story.url).host;
-            } catch (err) {
-                console.error(err);
-                return this.story.url;
+            if (this.story.url){
+                try {
+                    return new URL(this.story.url).host;
+                } catch (err) {
+                    console.error(err);
+                    return this.story.url;
+                }
             }
         },
         tabback() {
