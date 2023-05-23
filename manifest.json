@@ -32,5 +32,6 @@
       "name": "Show",
       "url": "/show"
     }
-  ]
+  ],
+  "edge_side_panel": {}
 }
