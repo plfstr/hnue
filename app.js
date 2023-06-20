@@ -161,7 +161,7 @@ hnue.component('hn-story', {
             return new Date(this.story.time * 1000).toLocaleString('en', options);
         },
         posteddatetime: function () {
-            return new Date(this.story.time * 1000);
+            return this.story.time ? new Date(new Date(this.story.time*1000)).toISOString() : null;
         },
         singlelink: function () {
             return `/post/${encodeURI(this.story.id)}`;
