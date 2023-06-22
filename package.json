@@ -5,6 +5,7 @@
     "private": true,
     "dependencies": {
         "vue": "3.x",
-        "vue-router": "4.x"
+        "vue-router": "4.x",
+        "@github/relative-time-element": "4.x"
     }
 }
