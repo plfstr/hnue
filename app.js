@@ -133,7 +133,7 @@ hnue.component('hn-story', {
             <div v-if="ispostroute && !story.deleted && !!postsnippet" v-html="story.text"></div>
 
             <ul class="post-footer lowlight">
-                <li v-if="!ispostroute"><span class="sr">Posted:</span>{{ timeago }}</li>
+                <li v-if="!ispostroute"><span class="sr">Posted:</span><relative-time :datetime="posteddatetime">{{ posted }}</relative-time></li>
                 <li v-else><span class="sr">Posted:</span><time :datetime="posteddatetime">{{ posted }}</time></li>
                 <li v-if="ispostroute"><span class="sr">Submitted:</span> {{ story.by }}</li>
                 <li v-if="story.descendants"><a :href="commentslinks">{{ story.descendants }}</a> comments</li>
