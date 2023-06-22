@@ -1,3 +1,4 @@
+import 'relative-time.js';
 const { createApp } = Vue;
 const hnue = createApp({
     data() {
