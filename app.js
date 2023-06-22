@@ -179,27 +179,6 @@ hnue.component('hn-story', {
         textpurified() {
             return this.story.text;
         },
-        timeago() {
-            // Stas Parshin [https://stackoverflow.com/a/69122877]
-            const date = new Date(this.story.time * 1000);
-            const formatter = new Intl.RelativeTimeFormat('en');
-            const ranges = {
-                years: 3600 * 24 * 365,
-                months: 3600 * 24 * 30,
-                weeks: 3600 * 24 * 7,
-                days: 3600 * 24,
-                hours: 3600,
-                minutes: 60,
-                seconds: 1
-            };
-            const secondsElapsed = (date.getTime() - Date.now()) / 1000;
-            for (let key in ranges) {
-                if (ranges[key] < Math.abs(secondsElapsed)) {
-                    const delta = secondsElapsed / ranges[key];
-                    return formatter.format(Math.round(delta), key);
-                }
-            }
-        },
         skipparent() {
             if (this.story.parent) { return '/#' + encodeURI(this.story.parent) };
         },
