@@ -116,9 +116,10 @@ article {
     /* border-bottom: 1px solid var(--col-feint); */
 }
 
-.story {
+.post {
     contain: content;
     min-height: 3rem;
+    word-wrap: break-word;
     content-visibility: auto;
     contain-intrinsic-size: 3rem;
 }
