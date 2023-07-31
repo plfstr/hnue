@@ -121,7 +121,7 @@ article {
     min-height: 3rem;
     word-wrap: break-word;
     content-visibility: auto;
-    contain-intrinsic-size: 3rem;
+    contain-intrinsic-size: auto 4rem;
 }
 
 /* .post ul {
