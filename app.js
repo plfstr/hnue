@@ -118,7 +118,8 @@ hnue.component('hn-story', {
     props: ['which'],
     data() {
         return {
-            story: {}
+            story: {},
+            collapsed: false
         }
     },
     template: `
@@ -147,7 +148,8 @@ hnue.component('hn-story', {
 
         <aside v-if="ispostroute">
             <h2 id="comments" v-if="story.type ==='story'">Comments</h2>
-            <hn-comments ref="comments" :ids="story.kids" aria-labelledby="comments"></hn-comments>
+            <button type="button" v-if="story.type !=='story' && story.kids && story.kids.length > 1" @click="collapseThread"><span v-if="!collapsed">Collapse</span><span v-else>Expand</span></button>
+            <hn-comments ref="comments" :ids="story.kids" aria-labelledby="comments" :hidden="collapsed"></hn-comments>
         </aside>
 
         <p v-if="isstory"><a href="#top">Back to top</a></p>
@@ -222,6 +224,13 @@ hnue.component('hn-story', {
             if (this.$route.hash === '#comments') {
                 console.log('#Comments hash');
                 this.$refs.comments.focus();
+            }
+        },
+        collapseThread() {
+            if (this.collapsed === false) {
+                this.collapsed = true;
+            } else {
+                this.collapsed = false;
             }
         }
     },
