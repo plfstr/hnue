@@ -148,7 +148,7 @@ hnue.component('hn-story', {
 
         <aside v-if="ispostroute">
             <h2 id="comments" v-if="story.type ==='story'">Comments</h2>
-            <button type="button" v-if="story.type !=='story' && story.kids && story.kids.length > 1" @click="collapseThread"><span v-if="!collapsed">Collapse</span><span v-else>Expand</span></button>
+            <button class="button" type="button" v-if="story.type !=='story' && story.kids && story.kids.length > 1" @click="collapseThread"><span v-if="!collapsed">Collapse</span><span v-else>Expand</span></button>
             <hn-comments ref="comments" :ids="story.kids" aria-labelledby="comments" :hidden="collapsed"></hn-comments>
         </aside>
 
