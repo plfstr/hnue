@@ -193,14 +193,26 @@ nav, nav ul, header {
 
 .button {
     display: inline-block;
+    padding: .5rem;    
+    text-transform: uppercase;
+    background-color: transparent;
+    /* background-color: var(--col-feint); */
+    /* color: var(--col-bg) !important; */
+    border: .15em solid var(--col-feint, currentColor);
+    cursor: pointer;
+}
+
+.button:is(:hover,:active,:focus) {
+    color: var(--col-lowlight, currentColor);
+    text-decoration: underline;
+    border-color: currentColor;
+}
+
+.button--large {
     padding: .75rem 1rem;
     margin-bottom: .75rem;
     min-width: 8em;
     text-align: center;
-    text-transform: uppercase;
-    /* background-color: var(--col-feint); */
-    /* color: var(--col-bg) !important; */
-    border: .025em solid var(--col-primary, currentColor);
 }
 
 /* header {
