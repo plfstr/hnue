@@ -118,8 +118,7 @@ hnue.component('hn-story', {
     props: ['which'],
     data() {
         return {
-            story: {},
-            collapsed: false
+            story: {}
         }
     },
     template: `
@@ -138,21 +137,15 @@ hnue.component('hn-story', {
                 <li v-if="ispostroute"><span class="sr">Submitted:</span> {{ story.by }}</li>
                 <li v-if="story.descendants"><a :href="commentslinks">{{ story.descendants }}</a> comments</li>
             </ul>
+    
+            <nav v-if="isstory">
+                <router-link v-if="isstory && !tabback" class="button" to="/">Back to homepage</router-link>
+                <router-link v-if="isstory && tabback !== null" class="button" :to="tabback">Back to {{ tabback }}</router-link>
+            </nav>
 
-        </article>
+            <hn-comments :ids="story.kids" :type="story.type"  v-if="ispostroute"></hn-comments>
             
-        <nav v-if="isstory">
-            <router-link v-if="isstory && !tabback" class="button" to="/">Back to homepage</router-link>
-            <router-link v-if="isstory && tabback !== null" class="button" :to="tabback">Back to {{ tabback }}</router-link>
-        </nav>
-
-        <aside v-if="ispostroute">
-            <h2 id="comments" v-if="story.type ==='story'">Comments</h2>
-            <button class="button" type="button" v-if="story.type !=='story' && story.kids && story.kids.length > 1" @click="collapseThread"><span v-if="!collapsed">Collapse</span><span v-else>Expand</span></button>
-            <hn-comments ref="comments" :ids="story.kids" aria-labelledby="comments" :hidden="collapsed"></hn-comments>
-        </aside>
-
-        <p v-if="isstory"><a href="#top">Back to top</a></p>
+        </article>
     `,
     computed: {
         postsnippet: function () {
@@ -225,13 +218,6 @@ hnue.component('hn-story', {
                 console.log('#Comments hash');
                 this.$refs.comments.focus();
             }
-        },
-        collapseThread() {
-            if (this.collapsed === false) {
-                this.collapsed = true;
-            } else {
-                this.collapsed = false;
-            }
         }
     },
     mounted() {
@@ -246,12 +232,42 @@ hnue.component('hn-story', {
 });
 
 hnue.component('hn-comments', {
-    props: ['ids'],
+    props: {
+        'ids': Array, 
+        'type': String
+    },
+    data() {
+        return {
+            collapsed: false
+        }
+    },
     template: `
-        <ul class="comments" v-if="ids">
-            <li v-for="id in ids"><hn-story :which="id" :key="id">Sorry, nothing here.</hn-story></li>
+    <section v-if="ids">
+        <h2 id="comments" v-if="type ==='story'">Comments</h2>
+        <button class="button" type="button" v-if="type ==='comment' && hasComments" @click="collapseThread"><span v-if="!collapsed">Collapse</span><span v-else>Expand</span></button>
+        <ul class="comments" :hidden="collapsed">
+            <li v-for="id in ids">
+                <hn-story :which="id" :key="id">Sorry, nothing here.</hn-story>
+            </li>
         </ul>
-    `
+    </section>
+    `,
+    computed: {
+        hasComments() {
+            if (this.ids) {
+                return this.ids.length > 1;
+            }
+        }
+    },
+    methods: {
+        collapseThread() {
+            if (this.collapsed === false) {
+                this.collapsed = true;
+            } else {
+                this.collapsed = false;
+            }
+        }
+    }
 });
 
 const Homeposts = `
