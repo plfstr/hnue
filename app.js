@@ -131,12 +131,7 @@ hnue.component('hn-story', {
 
             <div v-if="ispostroute && !story.deleted && !!postsnippet" v-html="story.text"></div>
 
-            <ul class="post-footer lowlight">
-                <li v-if="!ispostroute"><span class="sr">Posted:</span>{{ timeago }}</li>
-                <li v-else><span class="sr">Posted:</span><time :datetime="posteddatetime">{{ posted }}</time></li>
-                <li v-if="ispostroute"><span class="sr">Submitted:</span> {{ story.by }}</li>
-                <li v-if="story.descendants"><a :href="commentslinks">{{ story.descendants }}</a> comments</li>
-            </ul>
+            <hn-storyfooter :posteddate="story.time" :postedby="story.by" :comments="story.descendants"></hn-storyfooter>
     
             <nav v-if="isstory">
                 <router-link v-if="isstory && !tabback" class="button" to="/">Back to homepage</router-link>
@@ -150,13 +145,6 @@ hnue.component('hn-story', {
     computed: {
         postsnippet: function () {
             return new String(this.textpurified).slice(0, 300);
-        },
-        posted: function () {
-            const options = { "dateStyle": "medium", "timeStyle": "short" };
-            return new Date(this.story.time * 1000).toLocaleString('en', options);
-        },
-        posteddatetime: function () {
-            return this.story.time ? new Date(new Date(this.story.time*1000)).toISOString() : null;
         },
         singlelink: function () {
             return `/post/${encodeURI(this.story.id)}`;
@@ -172,27 +160,6 @@ hnue.component('hn-story', {
         },
         textpurified() {
             return this.story.text;
-        },
-        timeago() {
-            // Stas Parshin [https://stackoverflow.com/a/69122877]
-            const date = new Date(this.story.time * 1000);
-            const formatter = new Intl.RelativeTimeFormat('en');
-            const ranges = {
-                years: 3600 * 24 * 365,
-                months: 3600 * 24 * 30,
-                weeks: 3600 * 24 * 7,
-                days: 3600 * 24,
-                hours: 3600,
-                minutes: 60,
-                seconds: 1
-            };
-            const secondsElapsed = (date.getTime() - Date.now()) / 1000;
-            for (let key in ranges) {
-                if (ranges[key] < Math.abs(secondsElapsed)) {
-                    const delta = secondsElapsed / ranges[key];
-                    return formatter.format(Math.round(delta), key);
-                }
-            }
         },
         skipparent() {
             if (this.story.parent) { return '/#' + encodeURI(this.story.parent) };
@@ -227,6 +194,53 @@ hnue.component('hn-story', {
         }).catch(err => console.error(err));
         if (this.$route.hash === '#comments') {
             console.log('#Comments hash');
+        }
+    }
+});
+
+hnue.component('hn-storyfooter', {
+    props: ['posteddate', 'postedby', 'comments'],
+    template: `
+    <section>
+        <ul class="post-footer lowlight">
+            <li v-if="!ispostroute"><span class="sr">Posted:</span>{{ timeago }}</li>
+            <li v-else><span class="sr">Posted:</span><time :datetime="posteddatetime">{{ posted }}</time></li>
+            <li v-if="ispostroute"><span class="sr">Submitted:</span> {{ postedby }}</li>
+            <li v-if="comments"><a>{{ comments }}</a> comments</li>
+        </ul>
+    </section>
+    `,
+    computed: {
+        ispostroute() {
+            return this.$route.params.which;
+        },
+        posted: function () {
+            const options = { "dateStyle": "medium", "timeStyle": "short" };
+            return new Date(this.posteddate * 1000).toLocaleString('en', options);
+        },
+        timeago() {
+            // Stas Parshin [https://stackoverflow.com/a/69122877]
+            const date = new Date(this.posteddate * 1000);
+            const formatter = new Intl.RelativeTimeFormat('en');
+            const ranges = {
+                years: 3600 * 24 * 365,
+                months: 3600 * 24 * 30,
+                weeks: 3600 * 24 * 7,
+                days: 3600 * 24,
+                hours: 3600,
+                minutes: 60,
+                seconds: 1
+            };
+            const secondsElapsed = (date.getTime() - Date.now()) / 1000;
+            for (let key in ranges) {
+                if (ranges[key] < Math.abs(secondsElapsed)) {
+                    const delta = secondsElapsed / ranges[key];
+                    return formatter.format(Math.round(delta), key);
+                }
+            }
+        },
+        posteddatetime: function () {
+            return this.posteddate ? new Date(new Date(this.posteddate * 1000)).toISOString() : null;
         }
     }
 });
