@@ -129,7 +129,7 @@ hnue.component('hn-story', {
 
             <p v-if="ispostroute && domain" class="lowlight lowlight--domain">{{ domain }}</p>
 
-            <div v-if="ispostroute && !story.deleted && !!postsnippet" v-html="story.text"></div>
+            <div v-if="ispostroute && !story.deleted && !!postsnippet" v-html="textpurified"></div>
 
             <hn-storyfooter :posteddate="story.time" :postedby="story.by" :comments="story.descendants"></hn-storyfooter>
     
@@ -143,6 +143,9 @@ hnue.component('hn-story', {
         </article>
     `,
     computed: {
+        textpurified() {
+            return DOMPurify.sanitize(this.story.text);
+        },
         postsnippet: function () {
             return new String(this.textpurified).slice(0, 300);
         },
@@ -157,10 +160,7 @@ hnue.component('hn-story', {
         },
         isstory() {
             return this.ispostroute && this.story.type === 'story';
-        },
-        textpurified() {
-            return this.story.text;
-        },
+        },        
         skipparent() {
             if (this.story.parent) { return '/#' + encodeURI(this.story.parent) };
         },
