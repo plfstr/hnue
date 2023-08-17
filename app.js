@@ -127,7 +127,7 @@ hnue.component('hn-story', {
             <router-link v-if="!ispostroute && singlelink" :to="singlelink"><h1>{{ story.title }}</h1></router-link>
             <h1 v-else><a :href="story.url" target="_blank">{{ story.title }}</a></h1>
 
-            <p v-if="ispostroute && domain" class="lowlight lowlight--domain">{{ domain }}</p>
+            <p v-if="ispostroute && domain" class="lowlight">{{ domain }}</p>
 
             <div v-if="ispostroute && !story.deleted && !!postsnippet" v-html="textpurified"></div>
 
