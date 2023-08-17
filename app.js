@@ -136,6 +136,7 @@ hnue.component('hn-story', {
             <nav v-if="isstory">
                 <router-link v-if="isstory && !tabback" class="button" to="/">Back to homepage</router-link>
                 <router-link v-if="isstory && tabback !== null" class="button" :to="tabback">Back to {{ tabback }}</router-link>
+                <a v-if="hnlink" :href="hnlink" target="_blank">View on Hacker News</a>
             </nav>
 
             <hn-comments :ids="story.kids" :type="story.type"  v-if="ispostroute"></hn-comments>
@@ -176,6 +177,9 @@ hnue.component('hn-story', {
         },
         tabback() {
             return this.$root.tabnow ? '/' + this.$root.tabnow : null;
+        },
+        hnlink() {
+            return `https://news.ycombinator.com/item?id=${encodeURIComponent(this.story.id)}`;
         }
     },
     methods: {
