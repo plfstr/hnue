@@ -116,6 +116,11 @@ article {
     /* border-bottom: 1px solid var(--col-feint); */
 }
 
+article > *,
+article p {
+    margin: 0 0 .75rem;
+}
+
 .post {
     contain: content;
     min-height: 3rem;
