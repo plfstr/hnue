@@ -262,3 +262,7 @@ a[href="#top"]::before {
 .deleted {
     color: #656565;
   }
+
+article a:visited {
+  color: #6a6a6a;
+}
