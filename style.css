@@ -7,6 +7,7 @@
     --col-lowlight: #ac5100;
     --col-feint: #dfdfd2;
     --col-primary: #dc946a;
+    --col-visited: #6a6a6a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,6 +15,7 @@
         --col-bg: canvas;
         --col-lowlight: #bd8763;
         --col-feint: #4b3526;
+        --col-visited: #a1a1a1;
     }
 }
 
@@ -264,5 +266,5 @@ a[href="#top"]::before {
   }
 
 article a:visited {
-  color: #6a6a6a;
+  color: var(--col-visited, #838383);
 }
