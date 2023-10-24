@@ -93,6 +93,12 @@ a:is(:hover,:active, :focus, [aria-current="page"]) {
     background-color: var(--col-bg);
 }
 
+a[href^="https://news.ycombinator.com"]::after {
+    content: "\2794";
+    margin-inline-start: .25rem;
+    color: var(--col-lowlight, currentColor);
+}
+
 ul, ol {
     margin: 0;
     padding: 0;
