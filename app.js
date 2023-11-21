@@ -50,10 +50,12 @@ hnue.component('hn-posts', {
         this.$watch(
             () => this.$route.params, (toParams, previousParams) => {
                 console.warn(this.tabby());
-                if (toParams.tab !== previousParams.tab) {
-                    this.pagenumber = 0;
+                if (Object.keys(toParams).length) {
+                    if (toParams.tab !== previousParams.tab) {
+                        this.pagenumber = 0;
+                        this.newTab();
+                    }
                 }
-                this.newTab();
             })
     },
     mounted() {
