@@ -219,9 +219,13 @@ hnue.component('hn-storyfooter', {
             return this.$route.params.which;
         },
         posted: function () {
-            if (!this.posteddate) return;
-            const options = { "dateStyle": "medium", "timeStyle": "short" };
-            return new Date(this.posteddate * 1000).toLocaleString('en', options);
+            try {
+                const options = { "dateStyle": "medium", "timeStyle": "short" };
+                return new Date(this.posteddate * 1000).toLocaleString('en', options);
+            } catch(err) {
+                console.error(err);
+                return this.posteddate ?? null;
+            }
         },
         timeago() {
             // Stas Parshin [https://stackoverflow.com/a/69122877]
