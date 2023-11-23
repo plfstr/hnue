@@ -219,6 +219,7 @@ hnue.component('hn-storyfooter', {
             return this.$route.params.which;
         },
         posted: function () {
+            if (!this.posteddate) return;
             const options = { "dateStyle": "medium", "timeStyle": "short" };
             return new Date(this.posteddate * 1000).toLocaleString('en', options);
         },
