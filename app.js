@@ -49,11 +49,12 @@ hnue.component('hn-posts', {
     created() {
         this.$watch(
             () => this.$route.params, (toParams, previousParams) => {
-                console.warn(this.tabby());
-                if (toParams.tab !== previousParams.tab) {
-                    this.pagenumber = 0;
+                if (Object.keys(toParams).length) {
+                    if (toParams.tab !== previousParams.tab) {
+                        this.pagenumber = 0; // Reset pagination page
+                        this.newTab(); // fetch tab data
+                    }
                 }
-                this.newTab();
             })
     },
     mounted() {
