@@ -92,6 +92,8 @@ hnue.component('hn-posts', {
                 console.warn('Tabby');
                 this.fetchy(this.tabby());
                 this.$root.tabnow = this.tabby();
+            } else if (this.$root.tabnow) {
+                this.fetchy(this.$root.tabnow);
             } else {
                 console.warn('No tabby');
                 this.fetchy('top');
