@@ -219,11 +219,15 @@ hnue.component('hn-storyfooter', {
         ispostroute() {
             return this.$route.params.which;
         },
+        userlang() {
+            return window.navigator.languages ? window.navigator.languages : window.navigator.language;
+        },
         posted: function () {
             if (!this.posteddate) return;
             try {
+                const lang = this.userlang;
                 const options = { "dateStyle": "medium", "timeStyle": "short" };
-                return new Date(this.posteddate * 1000).toLocaleString('en', options);
+                return new Date(this.posteddate * 1000).toLocaleString(lang, options);
             } catch(err) {
                 console.error(err);
                 return this.posteddate ?? null;
@@ -231,8 +235,9 @@ hnue.component('hn-storyfooter', {
         },
         timeago() {
             // Stas Parshin [https://stackoverflow.com/a/69122877]
+            const lang = this.userlang;
             const date = new Date(this.posteddate * 1000);
-            const formatter = new Intl.RelativeTimeFormat('en');
+            const formatter = new Intl.RelativeTimeFormat(lang);
             const ranges = {
                 years: 3600 * 24 * 365,
                 months: 3600 * 24 * 30,
