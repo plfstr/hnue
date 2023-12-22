@@ -32,7 +32,7 @@ hnue.component('hn-posts', {
         }
     },
     template: `
-        <ol v-if="allitems" :start="pagestart + 1">
+        <ol class="posts" v-if="allitems" :start="pagestart + 1">
             <li v-for="item in paginate">
                 <hn-story :which="item" :key="item">Sorry, nothing here</hn-story>
             </li>
