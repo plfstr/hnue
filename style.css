@@ -75,7 +75,6 @@ pre {
 h1 {
     font-size: 1.375rem;
     line-height: 1;
-    margin: 0 0 .25rem;
 }
 
 h1 span.lowlight {
@@ -194,6 +193,10 @@ article p {
 
 article a:visited {
     color: var(--col-grey, currentColor);
+}
+
+.posts h1 {
+    margin: 0 0 .25rem;
 }
 
 ol .story {
