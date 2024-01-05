@@ -228,3 +228,17 @@ ol .story {
 .comment a {
     text-decoration: underline from-font dotted;
 }
+
+button[aria-expanded]:before {
+    margin-inline-end: .25rem;
+    font-weight: 700;
+    color: var(--col-lowlight);
+}
+
+button[aria-expanded="false"]:before {
+    content: "+";
+}
+
+button[aria-expanded="true"]:before {
+    content: "-";
+}
