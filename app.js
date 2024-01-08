@@ -289,7 +289,7 @@ hnue.component('hn-comments', {
             }
         },
         controlsId() {
-            return this.ids.join('');
+            return this.ids.join('').substring(0, 8);
         }
     },
     methods: {
