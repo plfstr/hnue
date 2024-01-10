@@ -141,6 +141,11 @@ hnue.component('hn-story', {
             </nav>
 
             <hn-comments :ids="story.kids" :type="story.type"  v-if="ispostroute"></hn-comments>
+
+            <nav v-if="ispostroute && isstory">
+                <router-link v-if="!tabback" class="button" to="/">Back to homepage</router-link>
+                <router-link v-if="tabback !== null" class="button" :to="tabback">Back to {{ tabback }}</router-link>
+            </nav>
             
         </article>
     `,
