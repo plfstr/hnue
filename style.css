@@ -229,6 +229,11 @@ ol .story {
     text-decoration: underline from-font dotted;
 }
 
+button[aria-expanded] {
+    font-family: inherit;
+    color: currentColor;
+}
+
 button[aria-expanded]:before {
     margin-inline-end: .25rem;
     font-weight: 700;
