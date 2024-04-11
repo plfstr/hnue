@@ -24,8 +24,6 @@ body {
     margin: 0;
     font: normal 100%/1.5 sans-serif;
     background-color: var(--col-bg);
-    -webkit-tap-highlight-color: transparent;
-    tap-highlight-color: transparent;
 }
 
 @media (min-width: 90ch) {
@@ -38,6 +36,8 @@ body {
 a:any-link {
     color: currentColor;
     text-decoration-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
 }
 
 a:is(:hover, :active, :focus, [aria-current="page"]) {
