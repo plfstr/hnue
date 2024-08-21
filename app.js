@@ -93,10 +93,12 @@ hnue.component('hn-posts', {
                 console.warn('Tabby');
                 this.fetchy(this.tabby());
                 this.$root.tabnow = this.tabby();
+                document.title = `HNue - ${this.tabby().replace(/\w/, (firstletter)=>firstletter.toUpperCase())}`;
             } else {
                 console.warn('No tabby');
                 this.fetchy('top');
                 this.$root.tabnow = 'top';
+                document.title = "HNue - Top";
             }
         }
     },
