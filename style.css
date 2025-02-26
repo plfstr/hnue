@@ -142,7 +142,6 @@ h1 span.lowlight {
 }
 
 .container {
-    container-type: scroll-state;
     flex: auto;
     scroll-padding-top: 50px;
 }
@@ -170,17 +169,18 @@ header {
 }
 
 .nav--main {
+    container-type: scroll-state;
     position: sticky;
     top: 0;
     z-index: 99;
-    background-color: var(--col-primary);
-    @container scroll-state(stuck: top) {
-        box-shadow: 0 .35rem 0 rgba(0, 0, 0, 0.1);
-    }
+    background-color: var(--col-primary);    
 }
 
 .nav--main ul {
     justify-content: space-around;
+    @container scroll-state(stuck: top) {
+        box-shadow: .35rem .35rem 0 rgba(0, 0, 0, 0.1);
+    }
 }
 
 .nav--main :is(ul, a) {
