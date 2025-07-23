@@ -71,13 +71,13 @@ hnue.component('hn-posts', {
             this.pagenumber++;
         },
         // Get tab var and fetch respective tab data...
-        fetchy(tabname) {
-            let whichdata = this.$root.tabs[tabname] ? this.$root.tabs[tabname] : 'topstories';
-            let tabdata = new URL(`https://hacker-news.firebaseio.com/v0/${encodeURIComponent(whichdata)}.json`);
-            if (!tabdata) return;
-            fetch(tabdata).then(res => res.json()).then((response) => {
-                this.allitems = response; 
-            }).catch(err => console.error(err));
+        async fetchy(tabname) {
+            let whichdata = this.$root?.tabs?.[tabname] ?? 'topstories';
+            let tabdata = new URL(`/v0/${encodeURIComponent(whichdata)}.json`, 'https://hacker-news.firebaseio.com');
+            this.allitems = await fetch(tabdata).then(res => res.json()).catch((err) => {
+                console.error(err);
+                return null;
+            });
         },
         // Grab route param...
         tabby() {
