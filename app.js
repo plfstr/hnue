@@ -197,11 +197,12 @@ hnue.component('hn-story', {
             }
         }
     },
-    mounted() {
-        let fetchthis = encodeURI(`https://hacker-news.firebaseio.com/v0/item/${this.which}.json`);
-        fetch(fetchthis).then(res => res.json()).then((response) => {
-            this.story = response;
-        }).catch(err => console.error(err));
+    async mounted() {
+        let fetchthis = new URL(`/v0/item/${encodeURI(this.which)}.json`, 'https://hacker-news.firebaseio.com');
+        this.story = await fetch(fetchthis).then(res => res.json()).catch((err) => {
+            console.error(err);
+            return null;
+        });
         if (this.$route.hash === '#comments') {
             console.log('#Comments hash');
         }
