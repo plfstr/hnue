@@ -213,8 +213,7 @@ hnue.component('hn-storyfooter', {
     template: `
     <section>
         <ul class="post-footer lowlight">
-            <li v-if="!ispostroute"><span class="sr">Posted:</span>{{ timeago }}</li>
-            <li v-else><span class="sr">Posted:</span><time :datetime="posteddatetime">{{ posted }}</time></li>
+            <li><span class="sr">Posted:</span> <time v-if="ispostroute" :datetime="posteddatetime">{{ posted }}</time><span v-else>{{ timeago }}</span></li>
             <li v-if="ispostroute"><span class="sr">Submitted:</span> {{ postedby }}</li>
             <li v-if="comments"><a>{{ comments }}</a> comments</li>
         </ul>
