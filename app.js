@@ -115,6 +115,44 @@ hnue.component('hn-posts', {
     }
 })
 
+hnue.component('hn-single', {
+    props: ['which'],
+    template: `
+        <article>
+
+            <hn-story :which="which"></hn-story>
+    
+            <nav>
+                <router-link v-if="!tabback" class="button" to="/">Back to homepage</router-link>
+                <router-link v-if="tabback !== null" class="button" :to="tabback">Back to {{ tabback }}</router-link>
+                <a v-if="hnlink" :href="hnlink" target="_blank">View on Hacker News</a>
+            </nav>
+
+            <hn-comments :ids="story.kids" :type="story.type"  v-if="ispostroute"></hn-comments>
+
+            <nav v-if="story.kids.length >= 10">
+                <router-link v-if="!tabback" class="button" to="/">Back to homepage</router-link>
+                <router-link v-if="tabback !== null" class="button" :to="tabback">Back to {{ tabback }}</router-link>
+            </nav>
+            
+        </article>
+    `,
+    computed: {
+        tabback() {
+            return this.$root?.tabnow ? '/' + this.$root?.tabnow : null;
+        },
+        hnlink() {
+            return `https://news.ycombinator.com/item?id=${ encodeURIComponent(this.which) }`;
+        }
+    },
+    mounted() {
+        const fetchthis = new URL(`/v0/item/${ encodeURI(this.which) }.json`, 'https://hacker-news.firebaseio.com');
+        fetch(fetchthis).then(res => res.json()).then((response) => {
+            this.comments = response;
+        }).catch(err => console.error(err));
+    }
+});
+
 hnue.component('hn-story', {
     props: ['which'],
     data() {
@@ -316,7 +354,7 @@ const Homeposts = `
 `;
 
 const Singlepost = `
-<hn-story></hn-story>
+<hn-single></hn-single>
 `;
 
 // VUE ROUTER
