@@ -171,6 +171,8 @@ hnue.component('hn-story', {
             <div v-if="ispostroute && !story.deleted &&" v-html="textpurified"></div>
 
             <hn-storyfooter :posteddate="story.time" :postedby="story.by" :comments="story.descendants"></hn-storyfooter>
+
+            <hn-comments :ids="story.kids" :type="story.type"  v-if="iscomment"></hn-comments>
             
         </article>
     `,
@@ -183,6 +185,9 @@ hnue.component('hn-story', {
         },
         ispostroute() {
             return this.$route.params.which;
+        },
+        iscomment() {
+            return this.story.type === 'comment';
         },
         domain() {
             if (this.story.url) {
