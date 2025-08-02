@@ -168,7 +168,7 @@ hnue.component('hn-story', {
 
             <p v-if="ispostroute && domain" class="lowlight">{{ domain }}</p>
 
-            <div v-if="ispostroute && !story.deleted &&" v-html="textpurified"></div>
+            <div v-if="ispostroute && !story.deleted" v-html="textpurified"></div>
 
             <hn-storyfooter :posteddate="story.time" :postedby="story.by" :comments="story.descendants"></hn-storyfooter>
 
