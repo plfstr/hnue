@@ -117,6 +117,11 @@ hnue.component('hn-posts', {
 
 hnue.component('hn-single', {
     props: ['which'],
+    data() {
+        return {
+            story: {}
+        }
+    },
     template: `
         <article>
 
@@ -148,7 +153,7 @@ hnue.component('hn-single', {
     mounted() {
         const fetchthis = new URL(`/v0/item/${ encodeURI(this.which) }.json`, 'https://hacker-news.firebaseio.com');
         fetch(fetchthis).then(res => res.json()).then((response) => {
-            this.comments = response;
+            this.story = response;
         }).catch(err => console.error(err));
     }
 });
