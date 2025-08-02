@@ -115,6 +115,49 @@ hnue.component('hn-posts', {
     }
 })
 
+hnue.component('hn-single', {
+    props: ['which'],
+    data() {
+        return {
+            story: {}
+        }
+    },
+    template: `
+        <article>
+
+            <hn-story :which="which"></hn-story>
+    
+            <nav>
+                <router-link v-if="!tabback" class="button" to="/">Back to homepage</router-link>
+                <router-link v-if="tabback !== null" class="button" :to="tabback">Back to {{ tabback }}</router-link>
+                <a v-if="hnlink" :href="hnlink" target="_blank">View on Hacker News</a>
+            </nav>
+
+            <hn-comments :ids="story.kids" :type="story.type"></hn-comments>
+
+            <nav v-if="story.kids.length >= 10">
+                <router-link v-if="!tabback" class="button" to="/">Back to homepage</router-link>
+                <router-link v-if="tabback !== null" class="button" :to="tabback">Back to {{ tabback }}</router-link>
+            </nav>
+            
+        </article>
+    `,
+    computed: {
+        tabback() {
+            return this.$root?.tabnow ? '/' + this.$root?.tabnow : null;
+        },
+        hnlink() {
+            return `https://news.ycombinator.com/item?id=${ encodeURIComponent(this.which) }`;
+        }
+    },
+    mounted() {
+        const fetchthis = new URL(`/v0/item/${ encodeURI(this.which) }.json`, 'https://hacker-news.firebaseio.com');
+        fetch(fetchthis).then(res => res.json()).then((response) => {
+            this.story = response;
+        }).catch(err => console.error(err));
+    }
+});
+
 hnue.component('hn-story', {
     props: ['which'],
     data() {
@@ -130,22 +173,11 @@ hnue.component('hn-story', {
 
             <p v-if="ispostroute && domain" class="lowlight">{{ domain }}</p>
 
-            <div v-if="ispostroute && !story.deleted && !!postsnippet" v-html="textpurified"></div>
+            <div v-if="ispostroute && !story.deleted" v-html="textpurified"></div>
 
             <hn-storyfooter :posteddate="story.time" :postedby="story.by" :comments="story.descendants"></hn-storyfooter>
-    
-            <nav v-if="isstory">
-                <router-link v-if="isstory && !tabback" class="button" to="/">Back to homepage</router-link>
-                <router-link v-if="isstory && tabback !== null" class="button" :to="tabback">Back to {{ tabback }}</router-link>
-                <a v-if="hnlink" :href="hnlink" target="_blank">View on Hacker News</a>
-            </nav>
 
-            <hn-comments :ids="story.kids" :type="story.type"  v-if="ispostroute"></hn-comments>
-
-            <nav v-if="ispostroute && isstory">
-                <router-link v-if="!tabback" class="button" to="/">Back to homepage</router-link>
-                <router-link v-if="tabback !== null" class="button" :to="tabback">Back to {{ tabback }}</router-link>
-            </nav>
+            <hn-comments :ids="story.kids" :type="story.type"  v-if="iscomment"></hn-comments>
             
         </article>
     `,
@@ -153,23 +185,14 @@ hnue.component('hn-story', {
         textpurified() {
             return DOMPurify.sanitize(this.story.text);
         },
-        postsnippet: function () {
-            return new String(this.textpurified).slice(0, 300);
-        },
         singlelink: function () {
             return `/post/${encodeURI(this.story.id)}`;
-        },
-        commentslinks() {
-            return `/post/${encodeURI(this.story.id)}/#comments`;
         },
         ispostroute() {
             return this.$route.params.which;
         },
-        isstory() {
-            return this.ispostroute && this.story.type === 'story';
-        },        
-        skipparent() {
-            if (this.story.parent) { return '/#' + encodeURI(this.story.parent) };
+        iscomment() {
+            return this.story.type === 'comment';
         },
         domain() {
             if (this.story.url) {
@@ -180,31 +203,13 @@ hnue.component('hn-story', {
                     return this.story.url;
                 }
             }
-        },
-        tabback() {
-            return this.$root.tabnow ? '/' + this.$root.tabnow : null;
-        },
-        hnlink() {
-            return `https://news.ycombinator.com/item?id=${encodeURIComponent(this.story.id)}`;
-        }
-    },
-    methods: {
-        focuscomments() {
-            console.log(this.$route.hash);
-            if (this.$route.hash === '#comments') {
-                console.log('#Comments hash');
-                this.$refs.comments.focus();
-            }
         }
     },
     mounted() {
-        let fetchthis = encodeURI(`https://hacker-news.firebaseio.com/v0/item/${this.which}.json`);
+        let fetchthis = new URL(`/v0/item/${ encodeURI(this.which) }.json`, 'https://hacker-news.firebaseio.com');
         fetch(fetchthis).then(res => res.json()).then((response) => {
             this.story = response;
         }).catch(err => console.error(err));
-        if (this.$route.hash === '#comments') {
-            console.log('#Comments hash');
-        }
     }
 });
 
@@ -316,7 +321,7 @@ const Homeposts = `
 `;
 
 const Singlepost = `
-<hn-story></hn-story>
+<hn-single></hn-single>
 `;
 
 // VUE ROUTER
