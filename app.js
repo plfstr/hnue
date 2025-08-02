@@ -128,7 +128,7 @@ hnue.component('hn-single', {
                 <a v-if="hnlink" :href="hnlink" target="_blank">View on Hacker News</a>
             </nav>
 
-            <hn-comments :ids="story.kids" :type="story.type"  v-if="ispostroute"></hn-comments>
+            <hn-comments :ids="story.kids" :type="story.type"></hn-comments>
 
             <nav v-if="story.kids.length >= 10">
                 <router-link v-if="!tabback" class="button" to="/">Back to homepage</router-link>
