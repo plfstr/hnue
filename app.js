@@ -171,7 +171,7 @@ hnue.component('hn-story', {
 
             <div v-if="ispostroute && !story.deleted" v-html="textpurified"></div>
 
-            <p><a v-if="hnlink" :href="hnlink" target="_blank">View on Hacker News</a></p>
+            <p v-if="ispostroute && hnlink"><a :href="hnlink" target="_blank">View on Hacker News</a></p>
 
             <hn-storyfooter :posteddate="story.time" :postedby="story.by" :comments="story.descendants"></hn-storyfooter>
 
