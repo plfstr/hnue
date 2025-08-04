@@ -130,7 +130,6 @@ hnue.component('hn-single', {
             <nav>
                 <router-link v-if="!tabback" class="button" to="/">Back to homepage</router-link>
                 <router-link v-if="tabback !== null" class="button" :to="tabback">Back to {{ tabback }}</router-link>
-                <a v-if="hnlink" :href="hnlink" target="_blank">View on Hacker News</a>
             </nav>
 
             <hn-comments :ids="story.kids" :type="story.type"></hn-comments>
@@ -145,9 +144,6 @@ hnue.component('hn-single', {
     computed: {
         tabback() {
             return this.$root?.tabnow ? '/' + this.$root?.tabnow : null;
-        },
-        hnlink() {
-            return `https://news.ycombinator.com/item?id=${ encodeURIComponent(this.which) }`;
         }
     },
     mounted() {
@@ -174,6 +170,8 @@ hnue.component('hn-story', {
             <p v-if="ispostroute && domain" class="lowlight">{{ domain }}</p>
 
             <div v-if="ispostroute && !story.deleted" v-html="textpurified"></div>
+
+            <p><a v-if="hnlink" :href="hnlink" target="_blank">View on Hacker News</a></p>
 
             <hn-storyfooter :posteddate="story.time" :postedby="story.by" :comments="story.descendants"></hn-storyfooter>
 
@@ -203,6 +201,9 @@ hnue.component('hn-story', {
                     return this.story.url;
                 }
             }
+        },
+        hnlink() {
+            return `https://news.ycombinator.com/item?id=${ encodeURIComponent(this.which) }`;
         }
     },
     mounted() {
