@@ -133,7 +133,10 @@ hnue.component('hn-single', {
                 <a v-if="hnlink" :href="hnlink" target="_blank">View on Hacker News</a>
             </nav>
 
-            <hn-comments :ids="story.kids" :type="story.type"></hn-comments>
+            <section>
+                <h2 id="comments">Comments</h2>
+                <hn-comments :ids="story.kids" :type="story.type"></hn-comments>
+            </section>
 
             <nav>
                 <router-link v-if="!tabback" class="button" to="/">Back to homepage</router-link>
@@ -282,15 +285,14 @@ hnue.component('hn-comments', {
         }
     },
     template: `
-    <section v-if="ids">
-        <h2 id="comments" v-if="type ==='story'">Comments</h2>
+    <div v-if="ids">
         <button class="button" type="button" v-if="type ==='comment' && hasComments" @click="collapseThread" :aria-controls="controlsId" :aria-expanded="!collapsed"><span v-if="!collapsed">Collapse</span><span v-else>Expand</span> {{ threadLength }}</button>
         <ul :id="controlsId" class="comments" :hidden="collapsed">
             <li v-for="id in ids">
                 <hn-story :which="id" :key="id">Sorry, nothing here.</hn-story>
             </li>
         </ul>
-    </section>
+    </div>
     `,
     computed: {
         hasComments() {
