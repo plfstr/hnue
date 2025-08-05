@@ -172,7 +172,7 @@ hnue.component('hn-story', {
         <article class="post" id="story.id" :key="story.id" :class="story.type">
 
             <router-link v-if="!ispostroute && singlelink" :to="singlelink"><h1>{{ story.title }}</h1></router-link>
-            <h1 v-else><a :href="story.url" target="_blank">{{ story.title }}</a></h1>
+            <h1 v-else-if="story.title"><a :href="story.url" target="_blank">{{ story.title }}</a></h1>
 
             <p v-if="ispostroute && domain" class="lowlight">{{ domain }}</p>
 
