@@ -130,7 +130,6 @@ hnue.component('hn-single', {
             <nav>
                 <router-link v-if="!tabback" class="button" to="/">Back to homepage</router-link>
                 <router-link v-if="tabback !== null" class="button" :to="tabback">Back to {{ tabback }}</router-link>
-                <a v-if="hnlink" :href="hnlink" target="_blank">View on Hacker News</a>
             </nav>
 
             <section>
@@ -148,9 +147,6 @@ hnue.component('hn-single', {
     computed: {
         tabback() {
             return this.$root?.tabnow ? '/' + this.$root?.tabnow : null;
-        },
-        hnlink() {
-            return `https://news.ycombinator.com/item?id=${ encodeURIComponent(this.which) }`;
         }
     },
     mounted() {
@@ -225,12 +221,16 @@ hnue.component('hn-storyfooter', {
             <li v-else><span class="sr">Posted:</span><time :datetime="posteddatetime">{{ posted }}</time></li>
             <li v-if="ispostroute"><span class="sr">Submitted:</span> {{ postedby }}</li>
             <li v-if="comments"><a>{{ comments }}</a> comments</li>
+            <li v-if="ispostroute"><a :href="hnlink" target="_blank">View on Hacker News</a></li>
         </ul>
     </section>
     `,
     computed: {
         ispostroute() {
             return this.$route.params.which;
+        },
+        hnlink() {
+            return `https://news.ycombinator.com/item?id=${ encodeURIComponent(this.ispostroute) }`;
         },
         userlang() {
             return window.navigator.languages ? window.navigator.languages : window.navigator.language;
