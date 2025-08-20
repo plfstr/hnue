@@ -31,13 +31,7 @@
                 <p>Alternatively, <a href="https://news.ycombinator.com">Hacker News</a> does not.</p>
             </noscript>
 
-            <nav class="nav--main">
-                <ul>
-                    <li v-for="(value, key) in tabs">
-                        <router-link :aria-current="tabCurrent(key)" :to="tabRoute(key)">{{ key }}</router-link>
-                    </li>
-                </ul>
-            </nav>
+            <hn-navbar :thistab="tabnow"></hn-navbar>
 
             <main>
                 <router-view></router-view>
