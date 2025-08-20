@@ -11,13 +11,25 @@ const hnue = createApp({
                 "ask": "askstories"
             },
         }
-    },
+    }
+});
+
+hnue.component('hn-navbar', {
+    props: ['thistab'],
+    template: `
+    <nav class="nav--main">
+        <ul>
+            <li v-for="(value, key) in this.$root.tabs">
+                <router-link :aria-current="tabCurrent(key)" :to="tabRoute(key)">{{ key }}</router-link>
+            </li>
+        </ul>
+    </nav>`,
     methods: {
-        tabCurrent(key) {
-            return this.tabnow === key ? 'page' : null;
+        tabRoute(key) {
+            return `/${encodeURI(key)}`;
         },
-        tabRoute(tab) {
-            return `/${tab}`;
+        tabCurrent(key) {
+            return this.thistab === key ? 'page' : null;
         }
     }
 });
