@@ -223,8 +223,11 @@ ol .story {
 
 .comments {
     list-style-type: none;
-    padding: 0 0 0 .75rem;
-    border-inline-start: 2px solid var(--col-feint);
+
+    & .comments {
+        padding: 0 0 0 .75rem;
+        border-inline-start: 2px solid var(--col-feint);
+    }
 
     .button + & {
         padding-top: .75rem;
