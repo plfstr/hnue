@@ -18,7 +18,7 @@
     }
   ],
   "start_url": "/hnue/",
-  "display": "standalone",
+  "display": "minimal-ui",
   "theme_color": "#f6f6ef",
   "background_color": "#f6f6ef",
   "shortcuts" : [
