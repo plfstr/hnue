@@ -221,7 +221,7 @@ hnue.component('hn-storyfooter', {
             <li v-else><span class="sr">Posted:</span><time :datetime="posteddatetime">{{ posted }}</time></li>
             <li v-if="ispostroute"><span class="sr">Submitted:</span> {{ postedby }}</li>
             <li v-if="comments"><a>{{ comments }}</a> comments</li>
-            <li v-if="ispostroute"><a :href="hnlink" target="_blank">View on Hacker News</a></li>
+            <li v-if="ispostroute"><a :href="hnlink" target="_blank">Permalink</a></li>
         </ul>
     </section>
     `,
