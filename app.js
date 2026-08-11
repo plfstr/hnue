@@ -51,7 +51,6 @@ hnue.component('hn-posts', {
             () => this.$route.params, (toParams, previousParams) => {
                 if (Object.keys(toParams).length) {
                     if (toParams.tab !== previousParams.tab) {
-                        this.pagenumber = 0; // Reset pagination page
                         this.newTab(); // fetch tab data
                     }
                 }
@@ -98,6 +97,7 @@ hnue.component('hn-posts', {
                 this.fetchy('top');
                 this.$root.tabnow = 'top';
             }
+            this.pagenumber = 0;
         }
     },
     computed: {
